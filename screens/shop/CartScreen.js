@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../../components/shop/CartItem';
 import Colors from '../../constants/Colors';
+import * as cartActions from '../../store/actions/cart';
 
 const CartScreen = (props) => {
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  const dispatch = useDispatch();
   const cartItems = useSelector(state => {
-    return Object.entries(state.cart.items).map(item => {
-      return {
-        ...item[1],
-        productId: item[0]
-      }
-    });
+    return Object.entries(state.cart.items)
+      .map(item => { return { ...item[1], productId: item[0] } })
+      .sort((a, b) => a.productId > b.productId ? 1 : -1);
   });
 
   return (
@@ -34,7 +33,9 @@ const CartScreen = (props) => {
           quantity={itemData.item.quantity}
           title={itemData.item.productTitle}
           amount={itemData.item.sum}
-          onRemove={() => { }}
+          onRemove={() => {
+            dispatch(cartActions.removeFromCart(itemData.item.productId));
+          }}
         />}
       />
     </View>
