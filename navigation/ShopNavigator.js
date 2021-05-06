@@ -7,10 +7,13 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
+import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
+
 import Colors from '../constants/Colors';
 
 const ProductsNavigator = createStackNavigator({
-  ProductsOverview: ProductsOverviewScreen
+  ProductsOverview: ProductsOverviewScreen,
+  ProductDetail: ProductDetailsScreen
 }, {
   defaultNavigationOptions: {
     headerStyle: {
