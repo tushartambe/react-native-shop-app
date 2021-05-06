@@ -10,10 +10,12 @@ import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailsScreen from '../screens/shop/ProductDetailsScreen';
 
 import Colors from '../constants/Colors';
+import CartScreen from '../screens/shop/CartScreen';
 
 const ProductsNavigator = createStackNavigator({
   ProductsOverview: ProductsOverviewScreen,
-  ProductDetail: ProductDetailsScreen
+  ProductDetail: ProductDetailsScreen,
+  Cart: CartScreen
 }, {
   defaultNavigationOptions: {
     headerStyle: {
