@@ -7,12 +7,14 @@ import CustomHeaderButton from '../../components/UI/HeaderButton';
 import * as cartActions from '../../store/actions/cart';
 
 const ProductsOverviewScreen = (props) => {
-  const availableProducts = useSelector(state => state.products.availableProducts);
+  const availableProducts = useSelector(
+    (state) => state.products.availableProducts
+  );
   const dispatch = useDispatch();
   return (
     <FlatList
       data={availableProducts}
-      renderItem={itemData => (
+      renderItem={(itemData) => (
         <ProductItem
           image={itemData.item.imageUrl}
           title={itemData.item.title}
@@ -21,9 +23,11 @@ const ProductsOverviewScreen = (props) => {
             props.navigation.navigate('ProductDetail', {
               productId: itemData.item.id,
               productTitle: itemData.item.title
-            })
+            });
           }}
-          onAddToCart={() => { dispatch(cartActions.addToCart(itemData.item)) }}
+          onAddToCart={() => {
+            dispatch(cartActions.addToCart(itemData.item));
+          }}
         />
       )}
     />
@@ -33,21 +37,35 @@ const ProductsOverviewScreen = (props) => {
 ProductsOverviewScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'All Products',
-    headerRight: <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-      <Item
-        title='Cart'
-        iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-        onPress={() => {
-          navData.navigation.navigate('Cart');
-        }} />
-    </HeaderButtons>
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="Menu"
+          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="Cart"
+          iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+          onPress={() => {
+            navData.navigation.navigate('Cart');
+          }}
+        />
+      </HeaderButtons>
+    )
   };
-}
+};
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1
-  },
+  }
 });
 
 export default ProductsOverviewScreen;
