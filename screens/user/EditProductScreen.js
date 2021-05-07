@@ -1,11 +1,11 @@
-import React, { Component, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
+  Platform,
   ScrollView,
+  StyleSheet,
+  Text,
   TextInput,
-  Platform
+  View
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,6 +38,7 @@ const EditProductScreen = (props) => {
         productsActions.createProduct(title, description, imageUrl, +price)
       );
     }
+    props.navigation.goBack();
   }, [dispatch, productId, title, imageUrl, price, description]);
 
   useEffect(() => {
